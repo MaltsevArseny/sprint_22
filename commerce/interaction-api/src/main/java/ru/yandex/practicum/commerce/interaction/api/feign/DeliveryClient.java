@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.commerce.interaction.api.dto.DeliveryDto;
 import ru.yandex.practicum.commerce.interaction.api.dto.OrderDto;
 
+import java.math.BigDecimal;
+
 @FeignClient(name = "delivery", path = "/api/v1/delivery")
 public interface DeliveryClient {
 
@@ -12,7 +14,7 @@ public interface DeliveryClient {
     DeliveryDto planDelivery(@RequestBody OrderDto order);
 
     @PostMapping("/cost")
-    Double deliveryCost(@RequestBody OrderDto order);
+    BigDecimal deliveryCost(@RequestBody OrderDto order);
 
     @PostMapping("/pickup")
     void pickUp(@RequestBody OrderDto order);

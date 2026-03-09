@@ -1,6 +1,5 @@
 package ru.yandex.practicum.commerce.interaction.api.feign;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 

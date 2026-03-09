@@ -1,8 +1,21 @@
+server:
+    port: 8082
+
 spring:
     application:
         name: shopping-store
     config:
         import: optional:configserver:http://localhost:8888
+    datasource:
+        url: jdbc:postgresql://localhost:5432/store_db
+        username: postgres
+        password: postgres
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: false
 
 eureka:
     client:

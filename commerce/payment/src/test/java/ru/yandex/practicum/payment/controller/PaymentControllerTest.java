@@ -13,6 +13,7 @@ import ru.yandex.practicum.commerce.interaction.api.dto.PaymentDto;
 import ru.yandex.practicum.commerce.interaction.api.enums.PaymentState;
 import ru.yandex.practicum.payment.service.PaymentService;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,40 +36,40 @@ class PaymentControllerTest {
     @MockBean
     private PaymentService paymentService;
 
-    private static final UUID ORDER_ID   = UUID.randomUUID();
+    private static final UUID ORDER_ID = UUID.randomUUID();
     private static final UUID PAYMENT_ID = UUID.randomUUID();
-    private static final UUID PROD_ID    = UUID.randomUUID();
+    private static final UUID PROD_ID = UUID.randomUUID();
 
     private OrderDto sampleOrder() {
         OrderDto dto = new OrderDto();
         dto.setOrderId(ORDER_ID);
         dto.setProducts(Map.of(PROD_ID, 2));
-        dto.setDeliveryPrice(50.0);
+        dto.setDeliveryPrice(BigDecimal.valueOf(50.0));
         return dto;
     }
 
     @Test
-    @DisplayName("POST /api/v1/payment/productCost → 200 with Double")
-    void productCost_returns200WithDouble() throws Exception {
-        when(paymentService.productCost(any())).thenReturn(190.0);
+    @DisplayName("POST /api/v1/payment/productCost → 200 with BigDecimal")
+    void productCost_returns200WithBigDecimal() throws Exception {
+        when(paymentService.productCost(any())).thenReturn(new BigDecimal("190.00"));
 
         mockMvc.perform(post("/api/v1/payment/productCost")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(sampleOrder())))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(sampleOrder())))
                 .andExpect(status().isOk())
-                .andExpect(content().string("190.0"));
+                .andExpect(content().string("190.00"));
     }
 
     @Test
-    @DisplayName("POST /api/v1/payment/totalCost → 200 with total Double")
-    void totalCost_returns200WithDouble() throws Exception {
-        when(paymentService.getTotalCost(any())).thenReturn(260.0);
+    @DisplayName("POST /api/v1/payment/totalCost → 200 with total BigDecimal")
+    void totalCost_returns200WithBigDecimal() throws Exception {
+        when(paymentService.getTotalCost(any())).thenReturn(new BigDecimal("260.00"));
 
         mockMvc.perform(post("/api/v1/payment/totalCost")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(sampleOrder())))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(sampleOrder())))
                 .andExpect(status().isOk())
-                .andExpect(content().string("260.0"));
+                .andExpect(content().string("260.00"));
     }
 
     @Test
@@ -77,15 +78,15 @@ class PaymentControllerTest {
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setPaymentId(PAYMENT_ID);
         paymentDto.setOrderId(ORDER_ID);
-        paymentDto.setTotalPayment(260.0);
+        paymentDto.setTotalPayment(new BigDecimal("260.00"));
         paymentDto.setState(PaymentState.PENDING);
         when(paymentService.payment(any())).thenReturn(paymentDto);
 
         mockMvc.perform(post("/api/v1/payment")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(sampleOrder())))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(sampleOrder())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.state").value("PENDING"))
-                .andExpect(jsonPath("$.totalPayment").value(260.0));
+                .andExpect(jsonPath("$.totalPayment").value(260.00));
     }
 }

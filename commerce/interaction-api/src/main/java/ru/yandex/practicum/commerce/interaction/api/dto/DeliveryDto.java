@@ -2,6 +2,7 @@ package ru.yandex.practicum.commerce.interaction.api.dto;
 
 import ru.yandex.practicum.commerce.interaction.api.enums.DeliveryState;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class DeliveryDto {
@@ -14,13 +15,13 @@ public class DeliveryDto {
     private Double deliveryVolume;
     private Boolean fragile;
     private DeliveryState state;
-    private Double deliveryPrice;
+    private BigDecimal deliveryPrice;
 
     public DeliveryDto() {}
 
     public DeliveryDto(UUID deliveryId, UUID orderId, AddressDto fromAddress, AddressDto toAddress,
                        Double deliveryWeight, Double deliveryVolume, Boolean fragile,
-                       DeliveryState state, Double deliveryPrice) {
+                       DeliveryState state, BigDecimal deliveryPrice) {
         this.deliveryId = deliveryId;
         this.orderId = orderId;
         this.fromAddress = fromAddress;
@@ -56,8 +57,8 @@ public class DeliveryDto {
     public DeliveryState getState() { return state; }
     public void setState(DeliveryState state) { this.state = state; }
 
-    public Double getDeliveryPrice() { return deliveryPrice; }
-    public void setDeliveryPrice(Double deliveryPrice) { this.deliveryPrice = deliveryPrice; }
+    public BigDecimal getDeliveryPrice() { return deliveryPrice; }
+    public void setDeliveryPrice(BigDecimal deliveryPrice) { this.deliveryPrice = deliveryPrice; }
 
     public static Builder builder() { return new Builder(); }
 
@@ -70,7 +71,7 @@ public class DeliveryDto {
         private Double deliveryVolume;
         private Boolean fragile;
         private DeliveryState state;
-        private Double deliveryPrice;
+        private BigDecimal deliveryPrice;
 
         public Builder deliveryId(UUID deliveryId) { this.deliveryId = deliveryId; return this; }
         public Builder orderId(UUID orderId) { this.orderId = orderId; return this; }
@@ -80,7 +81,7 @@ public class DeliveryDto {
         public Builder deliveryVolume(Double deliveryVolume) { this.deliveryVolume = deliveryVolume; return this; }
         public Builder fragile(Boolean fragile) { this.fragile = fragile; return this; }
         public Builder state(DeliveryState state) { this.state = state; return this; }
-        public Builder deliveryPrice(Double deliveryPrice) { this.deliveryPrice = deliveryPrice; return this; }
+        public Builder deliveryPrice(BigDecimal deliveryPrice) { this.deliveryPrice = deliveryPrice; return this; }
 
         public DeliveryDto build() {
             return new DeliveryDto(deliveryId, orderId, fromAddress, toAddress,

@@ -1,13 +1,26 @@
 server:
-    port: 8083
+    port: 8085
 
 spring:
     application:
         name: delivery
     config:
         import: optional:configserver:http://localhost:8888
+    datasource:
+        url: jdbc:postgresql://localhost:5432/delivery_db
+        username: postgres
+        password: postgres
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: false
 
 eureka:
     client:
         service-url:
             defaultZone: http://localhost:8761/eureka/
+
+delivery:
+    base-cost: 5.0
