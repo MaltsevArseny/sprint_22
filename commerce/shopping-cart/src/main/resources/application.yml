@@ -1,21 +1,8 @@
-server:
-    port: 8083
-
 spring:
     application:
         name: shopping-cart
     config:
         import: optional:configserver:http://localhost:8888
-    datasource:
-        url: jdbc:postgresql://localhost:5432/cart_db
-        username: postgres
-        password: postgres
-        driver-class-name: org.postgresql.Driver
-    jpa:
-        hibernate:
-            ddl-auto: update
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-        show-sql: false
 
 eureka:
     client:
