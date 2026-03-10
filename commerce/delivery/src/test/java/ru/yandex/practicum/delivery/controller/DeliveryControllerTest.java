@@ -13,6 +13,7 @@ import ru.yandex.practicum.commerce.interaction.api.dto.OrderDto;
 import ru.yandex.practicum.commerce.interaction.api.enums.DeliveryState;
 import ru.yandex.practicum.delivery.service.DeliveryService;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +35,7 @@ class DeliveryControllerTest {
     @MockBean
     private DeliveryService deliveryService;
 
-    private static final UUID ORDER_ID    = UUID.randomUUID();
+    private static final UUID ORDER_ID = UUID.randomUUID();
     private static final UUID DELIVERY_ID = UUID.randomUUID();
 
     private OrderDto sampleOrder() {
@@ -57,22 +58,22 @@ class DeliveryControllerTest {
         when(deliveryService.planDelivery(any())).thenReturn(response);
 
         mockMvc.perform(post("/api/v1/delivery")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(sampleOrder())))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(sampleOrder())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.deliveryId").value(DELIVERY_ID.toString()))
                 .andExpect(jsonPath("$.state").value("CREATED"));
     }
 
     @Test
-    @DisplayName("POST /api/v1/delivery/cost → 200 with computed cost Double")
-    void deliveryCost_returns200WithDouble() throws Exception {
-        when(deliveryService.deliveryCost(any())).thenReturn(27.6);
+    @DisplayName("POST /api/v1/delivery/cost → 200 with computed cost BigDecimal")
+    void deliveryCost_returns200WithBigDecimal() throws Exception {
+        when(deliveryService.deliveryCost(any())).thenReturn(new BigDecimal("27.60"));
 
         mockMvc.perform(post("/api/v1/delivery/cost")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(sampleOrder())))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(sampleOrder())))
                 .andExpect(status().isOk())
-                .andExpect(content().string("27.6"));
+                .andExpect(content().string("27.60"));
     }
 }

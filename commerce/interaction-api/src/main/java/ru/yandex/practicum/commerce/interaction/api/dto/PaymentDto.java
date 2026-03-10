@@ -2,21 +2,22 @@ package ru.yandex.practicum.commerce.interaction.api.dto;
 
 import ru.yandex.practicum.commerce.interaction.api.enums.PaymentState;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class PaymentDto {
 
     private UUID paymentId;
     private UUID orderId;
-    private Double productsTotal;
-    private Double deliveryTotal;
-    private Double totalPayment;
+    private BigDecimal productsTotal;
+    private BigDecimal deliveryTotal;
+    private BigDecimal totalPayment;
     private PaymentState state;
 
     public PaymentDto() {}
 
-    public PaymentDto(UUID paymentId, UUID orderId, Double productsTotal,
-                      Double deliveryTotal, Double totalPayment, PaymentState state) {
+    public PaymentDto(UUID paymentId, UUID orderId, BigDecimal productsTotal,
+                      BigDecimal deliveryTotal, BigDecimal totalPayment, PaymentState state) {
         this.paymentId = paymentId;
         this.orderId = orderId;
         this.productsTotal = productsTotal;
@@ -31,14 +32,14 @@ public class PaymentDto {
     public UUID getOrderId() { return orderId; }
     public void setOrderId(UUID orderId) { this.orderId = orderId; }
 
-    public Double getProductsTotal() { return productsTotal; }
-    public void setProductsTotal(Double productsTotal) { this.productsTotal = productsTotal; }
+    public BigDecimal getProductsTotal() { return productsTotal; }
+    public void setProductsTotal(BigDecimal productsTotal) { this.productsTotal = productsTotal; }
 
-    public Double getDeliveryTotal() { return deliveryTotal; }
-    public void setDeliveryTotal(Double deliveryTotal) { this.deliveryTotal = deliveryTotal; }
+    public BigDecimal getDeliveryTotal() { return deliveryTotal; }
+    public void setDeliveryTotal(BigDecimal deliveryTotal) { this.deliveryTotal = deliveryTotal; }
 
-    public Double getTotalPayment() { return totalPayment; }
-    public void setTotalPayment(Double totalPayment) { this.totalPayment = totalPayment; }
+    public BigDecimal getTotalPayment() { return totalPayment; }
+    public void setTotalPayment(BigDecimal totalPayment) { this.totalPayment = totalPayment; }
 
     public PaymentState getState() { return state; }
     public void setState(PaymentState state) { this.state = state; }
@@ -48,16 +49,16 @@ public class PaymentDto {
     public static class Builder {
         private UUID paymentId;
         private UUID orderId;
-        private Double productsTotal;
-        private Double deliveryTotal;
-        private Double totalPayment;
+        private BigDecimal productsTotal;
+        private BigDecimal deliveryTotal;
+        private BigDecimal totalPayment;
         private PaymentState state;
 
         public Builder paymentId(UUID paymentId) { this.paymentId = paymentId; return this; }
         public Builder orderId(UUID orderId) { this.orderId = orderId; return this; }
-        public Builder productsTotal(Double productsTotal) { this.productsTotal = productsTotal; return this; }
-        public Builder deliveryTotal(Double deliveryTotal) { this.deliveryTotal = deliveryTotal; return this; }
-        public Builder totalPayment(Double totalPayment) { this.totalPayment = totalPayment; return this; }
+        public Builder productsTotal(BigDecimal productsTotal) { this.productsTotal = productsTotal; return this; }
+        public Builder deliveryTotal(BigDecimal deliveryTotal) { this.deliveryTotal = deliveryTotal; return this; }
+        public Builder totalPayment(BigDecimal totalPayment) { this.totalPayment = totalPayment; return this; }
         public Builder state(PaymentState state) { this.state = state; return this; }
 
         public PaymentDto build() {

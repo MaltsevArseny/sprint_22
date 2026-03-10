@@ -1,5 +1,6 @@
 package ru.yandex.practicum.commerce.interaction.api.feign;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -11,10 +12,10 @@ import ru.yandex.practicum.commerce.interaction.api.dto.PaymentDto;
 public interface PaymentClient {
 
     @PostMapping("/productCost")
-    Double productCost(@RequestBody OrderDto order);
+    BigDecimal productCost(@RequestBody OrderDto order);
 
     @PostMapping("/totalCost")
-    Double getTotalCost(@RequestBody OrderDto order);
+    BigDecimal getTotalCost(@RequestBody OrderDto order);
 
     @PostMapping
     PaymentDto payment(@RequestBody OrderDto order);

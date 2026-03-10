@@ -1,0 +1,202 @@
+{
+    "info": {
+        "name": "Sprint 22 — Gateway Microservices v2",
+        "_postman_id": "sprint-22-gateway-v2",
+        "description": "Тесты для Sprint 22: API Gateway + Eureka + Spring Cloud microservices",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "gateway",
+            "value": "http://localhost:8080",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "✅ Order Service",
+            "item": [
+                {
+                    "name": "GET — Список заказов",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{gateway}}/order/order",
+                            "host": [
+                                "{{gateway}}"
+                            ],
+                            "path": [
+                                "order",
+                                "order"
+                            ]
+                        },
+                        "description": "Возвращает список заказов (пустой []) через Gateway → Order Service"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "✅ Delivery Service",
+            "item": [
+                {
+                    "name": "POST — Рассчитать стоимость доставки",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"orderId\": \"00000000-0000-0000-0000-000000000001\",\n  \"deliveryAddress\": {\n    \"country\": \"Russia\",\n    \"city\": \"Moscow\",\n    \"street\": \"Test Street\",\n    \"house\": \"1\",\n    \"flat\": \"1\"\n  }\n}"
+                        },
+                        "url": {
+                            "raw": "{{gateway}}/delivery/delivery/cost",
+                            "host": [
+                                "{{gateway}}"
+                            ],
+                            "path": [
+                                "delivery",
+                                "delivery",
+                                "cost"
+                            ]
+                        },
+                        "description": "Рассчитать стоимость доставки через Gateway → Delivery Service"
+                    }
+                },
+                {
+                    "name": "GET — Получить доставку по orderId",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{gateway}}/delivery/delivery/00000000-0000-0000-0000-000000000001",
+                            "host": [
+                                "{{gateway}}"
+                            ],
+                            "path": [
+                                "delivery",
+                                "delivery",
+                                "00000000-0000-0000-0000-000000000001"
+                            ]
+                        },
+                        "description": "Получить доставку по orderId через Gateway → Delivery Service"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "✅ Payment Service",
+            "item": [
+                {
+                    "name": "POST — Создать платёж",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"orderId\": \"00000000-0000-0000-0000-000000000001\",\n  \"products\": {},\n  \"deliveryWeight\": 2.5,\n  \"deliveryVolume\": 0.5,\n  \"fragile\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{gateway}}/payment/payment",
+                            "host": [
+                                "{{gateway}}"
+                            ],
+                            "path": [
+                                "payment",
+                                "payment"
+                            ]
+                        },
+                        "description": "Создать платёж через Gateway → Payment Service"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "✅ Warehouse Service",
+            "item": [
+                {
+                    "name": "GET — Состояние склада",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{gateway}}/warehouse/warehouse",
+                            "host": [
+                                "{{gateway}}"
+                            ],
+                            "path": [
+                                "warehouse",
+                                "warehouse"
+                            ]
+                        },
+                        "description": "Получить состояние склада через Gateway → Warehouse Service"
+                    }
+                },
+                {
+                    "name": "POST — Добавить товар на склад",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"productId\": \"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa\",\n  \"fragile\": false,\n  \"weight\": 1.0,\n  \"volume\": 0.2,\n  \"quantity\": 10\n}"
+                        },
+                        "url": {
+                            "raw": "{{gateway}}/warehouse/warehouse",
+                            "host": [
+                                "{{gateway}}"
+                            ],
+                            "path": [
+                                "warehouse",
+                                "warehouse"
+                            ]
+                        },
+                        "description": "Добавить товар на склад через Gateway → Warehouse Service"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "🔍 Eureka (прямой доступ)",
+            "item": [
+                {
+                    "name": "GET — Все зарегистрированные сервисы",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8761/eureka/apps",
+                            "host": [
+                                "http://localhost:8761"
+                            ],
+                            "path": [
+                                "eureka",
+                                "apps"
+                            ]
+                        },
+                        "description": "Список всех сервисов в Eureka"
+                    }
+                }
+            ]
+        }
+    ]
+}

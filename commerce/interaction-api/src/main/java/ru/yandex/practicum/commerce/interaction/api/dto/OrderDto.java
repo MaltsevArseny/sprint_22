@@ -2,6 +2,7 @@ package ru.yandex.practicum.commerce.interaction.api.dto;
 
 import ru.yandex.practicum.commerce.interaction.api.enums.OrderState;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,16 +18,16 @@ public class OrderDto {
     private Double deliveryWeight;
     private Double deliveryVolume;
     private Boolean fragile;
-    private Double totalPrice;
-    private Double productsPrice;
-    private Double deliveryPrice;
+    private BigDecimal totalPrice;
+    private BigDecimal productsPrice;
+    private BigDecimal deliveryPrice;
 
     public OrderDto() {}
 
     public OrderDto(UUID orderId, String username, OrderState state, UUID shoppingCartId,
                     Map<UUID, Integer> products, UUID paymentId, UUID deliveryId,
                     Double deliveryWeight, Double deliveryVolume, Boolean fragile,
-                    Double totalPrice, Double productsPrice, Double deliveryPrice) {
+                    BigDecimal totalPrice, BigDecimal productsPrice, BigDecimal deliveryPrice) {
         this.orderId = orderId;
         this.username = username;
         this.state = state;
@@ -72,14 +73,14 @@ public class OrderDto {
     public Boolean getFragile() { return fragile; }
     public void setFragile(Boolean fragile) { this.fragile = fragile; }
 
-    public Double getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(Double totalPrice) { this.totalPrice = totalPrice; }
+    public BigDecimal getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
 
-    public Double getProductsPrice() { return productsPrice; }
-    public void setProductsPrice(Double productsPrice) { this.productsPrice = productsPrice; }
+    public BigDecimal getProductsPrice() { return productsPrice; }
+    public void setProductsPrice(BigDecimal productsPrice) { this.productsPrice = productsPrice; }
 
-    public Double getDeliveryPrice() { return deliveryPrice; }
-    public void setDeliveryPrice(Double deliveryPrice) { this.deliveryPrice = deliveryPrice; }
+    public BigDecimal getDeliveryPrice() { return deliveryPrice; }
+    public void setDeliveryPrice(BigDecimal deliveryPrice) { this.deliveryPrice = deliveryPrice; }
 
     public static Builder builder() { return new Builder(); }
 
@@ -94,9 +95,9 @@ public class OrderDto {
         private Double deliveryWeight;
         private Double deliveryVolume;
         private Boolean fragile;
-        private Double totalPrice;
-        private Double productsPrice;
-        private Double deliveryPrice;
+        private BigDecimal totalPrice;
+        private BigDecimal productsPrice;
+        private BigDecimal deliveryPrice;
 
         public Builder orderId(UUID orderId) { this.orderId = orderId; return this; }
         public Builder username(String username) { this.username = username; return this; }
@@ -108,9 +109,9 @@ public class OrderDto {
         public Builder deliveryWeight(Double deliveryWeight) { this.deliveryWeight = deliveryWeight; return this; }
         public Builder deliveryVolume(Double deliveryVolume) { this.deliveryVolume = deliveryVolume; return this; }
         public Builder fragile(Boolean fragile) { this.fragile = fragile; return this; }
-        public Builder totalPrice(Double totalPrice) { this.totalPrice = totalPrice; return this; }
-        public Builder productsPrice(Double productsPrice) { this.productsPrice = productsPrice; return this; }
-        public Builder deliveryPrice(Double deliveryPrice) { this.deliveryPrice = deliveryPrice; return this; }
+        public Builder totalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; return this; }
+        public Builder productsPrice(BigDecimal productsPrice) { this.productsPrice = productsPrice; return this; }
+        public Builder deliveryPrice(BigDecimal deliveryPrice) { this.deliveryPrice = deliveryPrice; return this; }
 
         public OrderDto build() {
             return new OrderDto(orderId, username, state, shoppingCartId, products, paymentId, deliveryId,

@@ -1,23 +1,16 @@
 server:
-  port: 8186
+  port: 0
 
 spring:
-  application:
-    name: delivery
   datasource:
-    url: jdbc:h2:mem:delivery_db;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/delivery_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 delivery:
   base-cost: 5.0

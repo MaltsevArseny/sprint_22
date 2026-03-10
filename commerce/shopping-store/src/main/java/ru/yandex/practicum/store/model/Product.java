@@ -3,6 +3,7 @@ package ru.yandex.practicum.store.model;
 import jakarta.persistence.*;
 import ru.yandex.practicum.commerce.interaction.api.enums.ProductQuantityState;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -28,8 +29,8 @@ public class Product {
     private String productCategory;
     private Double rating;
 
-    @Column(nullable = false)
-    private Double price;
+    @Column(nullable = false, precision = 19, scale = 2)
+    private BigDecimal price;
 
     @Column(nullable = false)
     private Boolean fragile;
@@ -38,7 +39,7 @@ public class Product {
 
     public Product(UUID productId, String productName, String description, String imageSrc,
                    ProductQuantityState quantityState, String productCategory,
-                   Double rating, Double price, Boolean fragile) {
+                   Double rating, BigDecimal price, Boolean fragile) {
         this.productId = productId;
         this.productName = productName;
         this.description = description;
@@ -71,8 +72,8 @@ public class Product {
     public Double getRating() { return rating; }
     public void setRating(Double rating) { this.rating = rating; }
 
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
     public Boolean getFragile() { return fragile; }
     public void setFragile(Boolean fragile) { this.fragile = fragile; }
@@ -87,7 +88,7 @@ public class Product {
         private ProductQuantityState quantityState;
         private String productCategory;
         private Double rating;
-        private Double price;
+        private BigDecimal price;
         private Boolean fragile;
 
         public Builder productId(UUID productId) { this.productId = productId; return this; }
@@ -97,7 +98,7 @@ public class Product {
         public Builder quantityState(ProductQuantityState quantityState) { this.quantityState = quantityState; return this; }
         public Builder productCategory(String productCategory) { this.productCategory = productCategory; return this; }
         public Builder rating(Double rating) { this.rating = rating; return this; }
-        public Builder price(Double price) { this.price = price; return this; }
+        public Builder price(BigDecimal price) { this.price = price; return this; }
         public Builder fragile(Boolean fragile) { this.fragile = fragile; return this; }
 
         public Product build() {
